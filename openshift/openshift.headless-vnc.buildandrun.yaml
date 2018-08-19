@@ -162,13 +162,13 @@ parameters:
 - description: Git source URI for application
   name: SOURCE_REPOSITORY_URL
   required: true
-  value: http://gogs-front-end.telitcaas1.t-internal.com/ulkoenig/ubuntu-dev.git
+  value: http://github.com/ulkoenig/ubuntu-dev.git
 - description: Git branch/tag reference
   name: SOURCE_REPOSITORY_REF
   value: "master"
 - description: Name of the Dockerfile for example Dockerfile.ubuntu.xfce.vnc, Dockerfile.centos.icewm.vnc, Dockerfile.ubuntu.icewm.vnc or Dockerfile.centos.xfce.vnc
   name: SOURCE_DOCKERFILE
-  value: Dockerfile.ubuntu.xfce.vnc
+  value: Dockerfile.ubuntu.dev
 - description: GitHub trigger secret
   from: '[a-zA-Z0-9]{8}'
   generate: expression
@@ -183,16 +183,4 @@ parameters:
   from: '[a-zA-Z0-9]{8}'
   generate: expression
   name: VNC_PW
-  required: true
-- description: Install Visual Code from Microsoft
-  name: VC_INSTALL
-  value: "true"
-  required: true
-- description: Install Nodejs
-  name: NODEJS_INSTALL
-  value: "true"
-  required: true
-- description: Install OpenShift OC Tool
-  name: OC_INSTALL
-  value: "true"
-  required: true        
+  required: true      

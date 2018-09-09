@@ -3,10 +3,8 @@
 set -e
 
 echo "Install Eclipse"
-apt-get install -y software-properties-common
-add-apt-repository ppa:webupd8team/java
 apt-get update
-apt-get install -y oracle-java8-installer
+apt-get install -y default-jdk
 apt-get clean -y
 wget http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/photon/M2/eclipse-dsl-photon-M2-linux-gtk-x86_64.tar.gz -O eclipse.tag.gz
 mkdir /usr/local/etc/eclipse

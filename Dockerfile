@@ -46,10 +46,10 @@ RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 RUN $INST_SCRIPTS/tools.sh && \
     $INST_SCRIPTS/tigervnc.sh && \
     $INST_SCRIPTS/no_vnc.sh && \
-    $INST_SCRIPTS/firefox.sh && \
-    $INST_SCRIPTS/chrome.sh && \
-    $INST_SCRIPTS/xfce_ui.sh && \
-    $INST_SCRIPTS/eclipse.sh
+    $INST_SCRIPTS/xfce_ui.sh
+    # $INST_SCRIPTS/firefox.sh && \
+    # $INST_SCRIPTS/chrome.sh && \
+    # $INST_SCRIPTS/eclipse.sh
 
 ADD ./src/common/xfce/ $HOME/
 

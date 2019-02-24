@@ -1,21 +1,22 @@
 apiVersion: v1
 kind: Template
 labels:
-  template: ubuntu-dev-run
+  template: ubuntu-dev-mtr-image
 metadata:
   annotations:
-    description: Headless VNC (only run)
-    iconClass: icon-beaker
-    tags: headless,vnc,consol
+    openshift.io/display-name: "Developer Ubuntu container"
+    description: Headless VNC Developer container based on Ubuntu (build & run) with Eclipse, Netbeans, Visual Studio Code and many more
+    iconClass: icon-ubuntu
+    tags: headless,vnc,consol,dev,ubuntu
     version: 1.0.3
   creationTimestamp: null
-  name: ubuntu-dev-run
+  name: ubuntu-dev
 objects:
 - apiVersion: v1
   kind: Service
   metadata:
     annotations:
-      description: Headless VNC Developer container based on Ubuntu
+      description: Headless VNC Dev based on Ubuntu and http port
     labels:
       application: ${APPLICATION_NAME}
     name: ${APPLICATION_NAME}
@@ -47,12 +48,6 @@ objects:
     port:
       targetPort: http-port-tcp
 - apiVersion: v1
-  kind: ImageStream
-  metadata:
-    labels:
-      application: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}
-- apiVersion: v1
   kind: DeploymentConfig
   metadata:
     labels:
@@ -73,7 +68,7 @@ objects:
       spec:
         containers:
         - name: ${APPLICATION_NAME}
-          image: ${IMAGE}
+          image: mtr.external.otc.telekomcloud.com/fap_frontend_team/ubuntu-dev:latest
           imagePullPolicy: Always
           ports:
           - containerPort: 5901
@@ -108,11 +103,8 @@ parameters:
 - description: The name for the application.
   name: APPLICATION_NAME
   required: true
-  value: headless-vnc
+  value: ubuntu-dev
 - description: 'Custom hostname for http service route.  Leave blank for default hostname,
     e.g.: <application-name>-<project>.<default-domain-suffix>'
   name: HOSTNAME_HTTP
-- description: Headless vnc image
-  name: IMAGE
-  required: true
-  value: docker-registry.default.svc:5000/sandbox-front-end/ubuntu-dev:latest
+

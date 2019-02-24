@@ -1,15 +1,16 @@
 apiVersion: v1
 kind: Template
 labels:
-  template: ubuntu-dev-build-and-run
+  template: ubuntu-dev
 metadata:
   annotations:
-    description: Headless VNC Dev based on Ubuntu (build & run)
-    iconClass: icon-beaker
+    openshift.io/display-name: "Developer Ubuntu container"
+    description: Headless VNC Developer container based on Ubuntu (build & run) with Eclipse, Netbeans, Visual Studio Code and many more
+    iconClass: icon-ubuntu
     tags: headless,vnc,consol,dev,ubuntu
     version: 1.0.3
   creationTimestamp: null
-  name: ubuntu-dev-build-and-run
+  name: ubuntu-dev
 objects:
 - apiVersion: v1
   kind: Service
@@ -75,12 +76,8 @@ objects:
         env:
           - name: VNC_PW
             value: ${VNC_PW}
-          - name: VC_INSTALL
-            value: "true"
-          - name: NODEJS_INSTALL
-            value: "true"
-          - name: OC_INSTALL
-            value: "true"
+          - name: INSTALL_NODEJS
+            value: ${INSTALL_NODEJS}  
     triggers:
     - github:
         secret: ${GITHUB_WEBHOOK_SECRET}
@@ -106,7 +103,7 @@ objects:
     template:
       metadata:
         labels:
-          application: ${APPLICATION_NAME}
+          application: ${APPLICATION_NAME}INSTALL_NODEJS
           deploymentConfig: ${APPLICATION_NAME}
         name: ${APPLICATION_NAME}
       spec:
@@ -155,20 +152,20 @@ parameters:
 - description: The name for the application.
   name: APPLICATION_NAME
   required: true
-  value: headless-vnc
+  value: ubuntu-dev
 - description: 'Custom hostname for http service route.  Leave blank for default hostname,
     e.g.: <application-name>-<project>.<default-domain-suffix>'
   name: HOSTNAME_HTTP
 - description: Git source URI for application
   name: SOURCE_REPOSITORY_URL
   required: true
-  value: http://github.com/ulkoenig/ubuntu-dev.git
+  value: http://gogs-front-end.telitcaas1.t-internal.com/ulkoenig/ubuntu-dev.git
 - description: Git branch/tag reference
   name: SOURCE_REPOSITORY_REF
   value: "master"
 - description: Name of the Dockerfile for example Dockerfile.ubuntu.xfce.vnc, Dockerfile.centos.icewm.vnc, Dockerfile.ubuntu.icewm.vnc or Dockerfile.centos.xfce.vnc
   name: SOURCE_DOCKERFILE
-  value: Dockerfile.ubuntu.dev
+  value: Dockerfile
 - description: GitHub trigger secret
   from: '[a-zA-Z0-9]{8}'
   generate: expression
@@ -183,4 +180,28 @@ parameters:
   from: '[a-zA-Z0-9]{8}'
   generate: expression
   name: VNC_PW
-  required: true      
+  required: true
+- description: Install NODE.JS development environment with nodejs V6 and Visual Code Editor. For installation set value to TRUE
+  name: INSTALL_NODEJS
+  value: "FALSE"
+- description: Install Eclipse. For installation set value to TRUE
+  name: INSTALL_ECLIPSE
+  value: "FALSE"
+- description: Install Netbeans. For installation set value to TRUE
+  name: INSTALL_NETBEANS
+  value: "FALSE"
+- description: Install Docker. For installation set value to TRUE
+  name: INSTALL_DOCKER
+  value: "FALSE"
+- description: Install gedit text editor. For installation set value to TRUE
+  name: INSTALL_GEDIT
+  value: "FALSE"
+- description: Install IntelliJ IDEA. For installation set value to TRUE
+  name: INSTALL_INTELLIJ
+  value: "FALSE"
+- description: Install Openshift oc and K8s helm. For installation set value to TRUE
+  name: INSTALL_OPENSHIFTTOOLS
+  value: "FALSE"
+- description: Install Postman. For installation set value to TRUE
+  name: INSTALL_POSTMAN
+  value: "FALSE"

@@ -1,6 +1,7 @@
 # This Dockerfile is used to build an headles vnc image based on Ubuntu
 
-FROM ubuntu:16.04
+# FROM ubuntu:16.04
+FROM 172.30.1.1:5000/myproject/ubuntu-base
 
 MAINTAINER Tobias Schneck "tobias.schneck@consol.de"
 ENV REFRESHED_AT 2018-03-27
@@ -43,11 +44,11 @@ RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 ### Install xvnc-server & noVNC - HTML5 based VNC viewer
 ### Install firefox and chrome browser
 ### Install xfce UI
-RUN $INST_SCRIPTS/tools.sh && \
-    $INST_SCRIPTS/tigervnc.sh && \
-    $INST_SCRIPTS/no_vnc.sh && \
-    $INST_SCRIPTS/xfce_ui.sh
-# RUN $INST_SCRIPTS/firefox.sh
+# RUN $INST_SCRIPTS/tools.sh && \
+#    $INST_SCRIPTS/tigervnc.sh && \
+#    $INST_SCRIPTS/no_vnc.sh && \
+#    $INST_SCRIPTS/xfce_ui.sh
+RUN $INST_SCRIPTS/firefox.sh
     # $INST_SCRIPTS/chrome.sh && \
     # $INST_SCRIPTS/eclipse.sh
 

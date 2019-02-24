@@ -36,9 +36,9 @@ ENV HOME=/headless \
 WORKDIR $HOME
 
 ### Add all install scripts for further steps
-ADD ./src/common/install/ $INST_SCRIPTS/
-ADD ./src/ubuntu/install/ $INST_SCRIPTS/
-RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
+# ADD ./src/common/install/ $INST_SCRIPTS/
+# ADD ./src/ubuntu/install/ $INST_SCRIPTS/
+# RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 
 ### Install some common tools
 ### Install xvnc-server & noVNC - HTML5 based VNC viewer

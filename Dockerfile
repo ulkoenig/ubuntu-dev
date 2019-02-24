@@ -55,6 +55,7 @@ RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 RUN $INST_SCRIPTS/eclipse.sh && \
     $INST_SCRIPTS/netbeans.sh && \
     $INST_SCRIPTS/tools_adv.sh && \
+    $INST_SCRIPTS/gedit.sh && \
     $INST_SCRIPTS/postman.sh
 # $INST_SCRIPTS/intellij.sh
         

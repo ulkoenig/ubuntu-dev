@@ -35,7 +35,7 @@ ENV HOME=/headless \
     LC_ALL='en_US.UTF-8'
 WORKDIR $HOME
 
-USER 1
+USER root
 
 ### Add all install scripts for further steps
 ADD ./src/common/install/ $INST_SCRIPTS/

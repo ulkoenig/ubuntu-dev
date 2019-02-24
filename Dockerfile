@@ -46,15 +46,14 @@ RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 ### Install xvnc-server & noVNC - HTML5 based VNC viewer
 ### Install firefox and chrome browser
 ### Install xfce UI
-RUN $INST_SCRIPTS/tools.sh && \
-    $INST_SCRIPTS/tigervnc.sh && \
-     $INST_SCRIPTS/no_vnc.sh
-     # && \
+# RUN $INST_SCRIPTS/tools.sh && \
+#    $INST_SCRIPTS/tigervnc.sh && \
+#    $INST_SCRIPTS/no_vnc.sh && \
 #    $INST_SCRIPTS/xfce_ui.sh
 # RUN $INST_SCRIPTS/firefox.sh
     # $INST_SCRIPTS/chrome.sh && \
     # $INST_SCRIPTS/eclipse.sh
-# RUN $INST_SCRIPTS/intellij.sh
+RUN $INST_SCRIPTS/intellij.sh
         
 
 ADD ./src/common/xfce/ $HOME/

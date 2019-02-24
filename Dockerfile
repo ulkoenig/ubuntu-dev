@@ -52,13 +52,13 @@ RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 #    $INST_SCRIPTS/xfce_ui.sh
 # RUN $INST_SCRIPTS/firefox.sh
     # $INST_SCRIPTS/chrome.sh && \
-RUN $INST_SCRIPTS/eclipse.sh && \
-    $INST_SCRIPTS/netbeans.sh && \
-    $INST_SCRIPTS/tools_adv.sh && \
-    $INST_SCRIPTS/gedit.sh && \
-    $INST_SCRIPTS/postman.sh
+# RUN $INST_SCRIPTS/eclipse.sh && \
+#    $INST_SCRIPTS/netbeans.sh && \
+#    $INST_SCRIPTS/tools_adv.sh && \
+#    $INST_SCRIPTS/gedit.sh && \
+#    $INST_SCRIPTS/postman.sh
 # $INST_SCRIPTS/intellij.sh
-        
+RUN $INST_SCRIPTS/display_resolution.sh        
 
 ADD ./src/common/xfce/ $HOME/
 

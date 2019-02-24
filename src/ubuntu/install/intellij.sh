@@ -12,9 +12,9 @@ ln -s /usr/local/etc/idea*/bin/idea.sh /usr/local/bin/idea.sh
 cat > /usr/share/applications/intellij.desktop << EOF
 [Desktop Entry]
 Name=IntelliJ
-GenericName=IntelliJ IDE
-GenericName[de]=IntelliJ IDE
-GenericName[en]=IntelliJ IDE
+GenericName=IntelliJ IDEA
+GenericName[de]=IntelliJ IDEA
+GenericName[en]=IntelliJ IDEA
 Comment=Developer IDE
 Exec=idea.sh
 Icon=/usr/local/etc/idea-IC-183.5429.30/bin/idea.png

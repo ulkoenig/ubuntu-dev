@@ -58,7 +58,8 @@ RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 #    $INST_SCRIPTS/gedit.sh && \
 #    $INST_SCRIPTS/postman.sh
 # $INST_SCRIPTS/intellij.sh
-RUN $INST_SCRIPTS/display_resolution.sh        
+RUN $INST_SCRIPTS/display_resolution.sh && \        
+    $INST_SCRIPTS/docker.sh
 
 ADD ./src/common/xfce/ $HOME/
 

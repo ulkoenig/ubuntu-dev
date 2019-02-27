@@ -77,7 +77,21 @@ objects:
           - name: VNC_PW
             value: ${VNC_PW}
           - name: INSTALL_NODEJS
-            value: ${INSTALL_NODEJS}  
+            value: ${INSTALL_NODEJS}
+          - name: INSTALL_ECLIPSE
+            value: ${INSTALL_ECLIPSE}
+          - name: INSTALL_NETBEANS
+            value: ${INSTALL_NETBEANS}
+          - name: INSTALL_DOCKER
+            value: ${INSTALL_DOCKER}
+          - name: INSTALL_GEDIT
+            value: ${INSTALL_GEDIT}
+          - name: INSTALL_INTELLIJ
+            value: ${INSTALL_INTELLIJ}
+          - name: INSTALL_OPENSHIFTTOOLS
+            value: ${INSTALL_OPENSHIFTTOOLS}
+          - name: INSTALL_POSTMAN
+            value: ${INSTALL_POSTMAN}
     triggers:
     - github:
         secret: ${GITHUB_WEBHOOK_SECRET}
@@ -165,7 +179,7 @@ parameters:
   value: "master"
 - description: Name of the Dockerfile for example Dockerfile.ubuntu.xfce.vnc, Dockerfile.centos.icewm.vnc, Dockerfile.ubuntu.icewm.vnc or Dockerfile.centos.xfce.vnc
   name: SOURCE_DOCKERFILE
-  value: Dockerfile
+  value: Dockerfile.ubuntu.dev
 - description: GitHub trigger secret
   from: '[a-zA-Z0-9]{8}'
   generate: expression
@@ -181,27 +195,27 @@ parameters:
   generate: expression
   name: VNC_PW
   required: true
+- description: Install DOCKER. For installation set value to TRUE
+  name: INSTALL_OPENSHIFTTOOLS
+  value: "TRUE"
+- description: Install DOCKER. For installation set value to TRUE
+  name: INSTALL_DOCKER
+  value: "TRUE"
 - description: Install NODE.JS development environment with nodejs V6 and Visual Code Editor. For installation set value to TRUE
   name: INSTALL_NODEJS
-  value: "FALSE"
-- description: Install Eclipse. For installation set value to TRUE
+  value: "TRUE"
+- description: Install ECLIPSE. For installation set value to TRUE
   name: INSTALL_ECLIPSE
   value: "FALSE"
-- description: Install Netbeans. For installation set value to TRUE
+- description: Install NETBEANS. For installation set value to TRUE
   name: INSTALL_NETBEANS
   value: "FALSE"
-- description: Install Docker. For installation set value to TRUE
-  name: INSTALL_DOCKER
-  value: "FALSE"
-- description: Install gedit text editor. For installation set value to TRUE
-  name: INSTALL_GEDIT
-  value: "FALSE"
-- description: Install IntelliJ IDEA. For installation set value to TRUE
+- description: Install DOCKER. For installation set value to TRUE
   name: INSTALL_INTELLIJ
   value: "FALSE"
-- description: Install Openshift oc and K8s helm. For installation set value to TRUE
-  name: INSTALL_OPENSHIFTTOOLS
+- description: Install DOCKER. For installation set value to TRUE
+  name: INSTALL_GEDIT
   value: "FALSE"
-- description: Install Postman. For installation set value to TRUE
+- description: Install DOCKER. For installation set value to TRUE
   name: INSTALL_POSTMAN
-  value: "FALSE"
+  value: "TRUE"

@@ -4,7 +4,7 @@ set -e
 
 echo "Install some common tools for further installation"
 apt-get update 
-apt-get install -y vim wget curl net-tools locales bzip2 git-core jq \
+apt-get install -y vim wget curl net-tools locales bzip2 git-core jq tree \
     python-numpy #used for websockify/novnc
 apt-get clean -y
 

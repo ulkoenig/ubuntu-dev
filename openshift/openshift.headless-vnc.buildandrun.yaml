@@ -13,6 +13,18 @@ metadata:
   name: ubuntu-dev
 objects:
 - apiVersion: v1
+  kind: Secret
+  metadata:
+    annotations:
+      template.openshift.io/expose-admin_password: '{.data[''vnc_password'']}'
+    labels:
+      application: ${APPLICATION_NAME}
+      template: ubuntu-dev
+    name: ${APPLICATION_NAME}-secret
+  stringData:
+    vnc-password: ${VNC_PW}    
+  type: Opaque
+- apiVersion: v1
   kind: Service
   metadata:
     annotations:
@@ -74,8 +86,6 @@ objects:
       dockerStrategy:
         dockerfilePath: ${SOURCE_DOCKERFILE}
         env:
-          - name: VNC_PW
-            value: ${VNC_PW}
           - name: INSTALL_NODEJS
             value: ${INSTALL_NODEJS}
           - name: INSTALL_ECLIPSE
@@ -122,7 +132,13 @@ objects:
         name: ${APPLICATION_NAME}
       spec:
         containers:
-        - name: ${APPLICATION_NAME}
+        - env:
+          - name: VNC_PW
+            valueFrom:
+              secretKeyRef:
+                key: vnc-password
+                name: ${APPLICATION_NAME}-secret
+          name: ${APPLICATION_NAME}
           image: ${APPLICATION_NAME}
           imagePullPolicy: Always
           ports:
@@ -179,7 +195,7 @@ parameters:
   value: "master"
 - description: Name of the Dockerfile for example Dockerfile.ubuntu.xfce.vnc, Dockerfile.centos.icewm.vnc, Dockerfile.ubuntu.icewm.vnc or Dockerfile.centos.xfce.vnc
   name: SOURCE_DOCKERFILE
-  value: Dockerfile.ubuntu.dev
+  value: Dockerfile
 - description: GitHub trigger secret
   from: '[a-zA-Z0-9]{8}'
   generate: expression
@@ -197,13 +213,13 @@ parameters:
   required: true
 - description: Install DOCKER. For installation set value to TRUE
   name: INSTALL_OPENSHIFTTOOLS
-  value: "TRUE"
+  value: "FALSE"
 - description: Install DOCKER. For installation set value to TRUE
   name: INSTALL_DOCKER
-  value: "TRUE"
+  value: "FALSE"
 - description: Install NODE.JS development environment with nodejs V6 and Visual Code Editor. For installation set value to TRUE
   name: INSTALL_NODEJS
-  value: "TRUE"
+  value: "FALSE"
 - description: Install ECLIPSE. For installation set value to TRUE
   name: INSTALL_ECLIPSE
   value: "FALSE"
@@ -218,4 +234,4 @@ parameters:
   value: "FALSE"
 - description: Install DOCKER. For installation set value to TRUE
   name: INSTALL_POSTMAN
-  value: "TRUE"
+  value: "FALSE"

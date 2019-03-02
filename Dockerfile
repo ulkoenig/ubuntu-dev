@@ -58,15 +58,14 @@ ADD ./src/common/install/ $INST_SCRIPTS/
 ADD ./src/ubuntu/install/ $INST_SCRIPTS/
 RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 
-RUN locale-gen en_US.UTF-8
-
+RUN $INST_SCRIPTS/tools.sh
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US:en' \
     LC_ALL='en_US.UTF-8'
 
 ### Install all additional tools now 
-RUN $INST_SCRIPTS/tools.sh && \
-    $INST_SCRIPTS/tigervnc.sh && \
+#RUN $INST_SCRIPTS/tools.sh && \
+RUN $INST_SCRIPTS/tigervnc.sh && \
     $INST_SCRIPTS/no_vnc.sh && \
     $INST_SCRIPTS/firefox.sh && \
     $INST_SCRIPTS/chrome.sh && \

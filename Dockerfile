@@ -58,14 +58,16 @@ ADD ./src/common/install/ $INST_SCRIPTS/
 ADD ./src/ubuntu/install/ $INST_SCRIPTS/
 RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 
-RUN $INST_SCRIPTS/tools.sh
+### Install some basics and set local environment first
+RUN $INST_SCRIPTS/base.sh
+
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US:en' \
     LC_ALL='en_US.UTF-8'
 
-### Install all additional tools now 
-#RUN $INST_SCRIPTS/tools.sh && \
-RUN $INST_SCRIPTS/tigervnc.sh && \
+### Install all additional tools and applications now 
+RUN $INST_SCRIPTS/tools.sh && \
+    $INST_SCRIPTS/tigervnc.sh && \
     $INST_SCRIPTS/no_vnc.sh && \
     $INST_SCRIPTS/firefox.sh && \
     $INST_SCRIPTS/chrome.sh && \
@@ -89,7 +91,7 @@ ADD ./src/common/xfce/ $HOME/
 ### configure startup
 RUN $INST_SCRIPTS/libnss_wrapper.sh
 ADD ./src/common/scripts $STARTUPDIR
-ADD ./src/ubuntu/env/.mozilla $MOZILLA_HOME
+#ADD ./src/ubuntu/env/.mozilla $MOZILLA_HOME
 RUN $INST_SCRIPTS/set_user_permission.sh $STARTUPDIR $HOME
 
 USER 1000

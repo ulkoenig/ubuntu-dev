@@ -59,7 +59,7 @@ ADD ./src/ubuntu/install/ $INST_SCRIPTS/
 RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 
 ### Install some basics and set local environment first
-RUN $INST_SCRIPTS/base.sh
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
 
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US:en' \

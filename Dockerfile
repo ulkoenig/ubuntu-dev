@@ -26,7 +26,7 @@ ENV HOME=/headless \
     INST_SCRIPTS=/headless/install \
     MOZILLA_HOME=/headless/.mozilla \
     NO_VNC_HOME=/headless/noVNC \
-    DEBIAN_FRONTEND=teletype \
+    DEBIAN_FRONTEND=noninteractive \
     VNC_COL_DEPTH=24 \
     VNC_RESOLUTION=1280x1024 \
     VNC_VIEW_ONLY=false 
@@ -59,15 +59,15 @@ ADD ./src/ubuntu/install/ $INST_SCRIPTS/
 RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 
 ### Install some basics and set local environment first
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+RUN $INST_SCRIPTS/tools.sh
 
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US:en' \
     LC_ALL='en_US.UTF-8'
 
 ### Install all additional tools and applications now 
-RUN $INST_SCRIPTS/tools.sh && \
-    $INST_SCRIPTS/tigervnc.sh && \
+## RUN $INST_SCRIPTS/tools.sh && \
+RUN $INST_SCRIPTS/tigervnc.sh && \
     $INST_SCRIPTS/no_vnc.sh && \
     $INST_SCRIPTS/firefox.sh && \
     $INST_SCRIPTS/chrome.sh && \

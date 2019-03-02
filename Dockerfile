@@ -3,7 +3,7 @@
 FROM ubuntu:16.04
 
 MAINTAINER Ulrich Koenig "ulrich.koenig@telekom.de"
-ENV REFRESHED_AT 2018-09-03
+ENV REFRESHED_AT 2019-03-01
 
 LABEL io.k8s.description="Headless VNC Container with Xfce window manager, firefox, chromium and many more" \
       io.k8s.display-name="Headless VNC Container based on Ubuntu" \
@@ -29,12 +29,28 @@ ENV HOME=/headless \
     DEBIAN_FRONTEND=noninteractive \
     VNC_COL_DEPTH=24 \
     VNC_RESOLUTION=1280x1024 \
-    VNC_VIEW_ONLY=false \
-    LANG='en_US.UTF-8' \
-    LANGUAGE='en_US:en' \
-    LC_ALL='en_US.UTF-8'
+    VNC_VIEW_ONLY=false 
 
-    
+### Arguments at build time
+ARG INSTALL_OPENSHIFTTOOLS=TRUE
+ARG INSTALL_ECLIPSE=FALSE
+ARG INSTALL_NETBEANS=FALSE
+ARG INSTALL_INTELLIJ=FALSE
+ARG INSTALL_POSTMAN=TRUE
+ARG INSTALL_DOCKER=TRUE
+ARG INSTALL_NODEJS=TRUE
+ARG INSTALL_GEDIT=FALSE    
+
+ENV INSTALL_OPENSHIFTTOOLS=$(INSTALL_OPENSHIFTTOOLS) \
+    INSTALL_ECLIPSE=$(INSTALL_ECLIPSE) \
+    INSTALL_NETBEANS=$(INSTALL_NETBEANS) \
+    INSTALL_INTELLIJ=$(INSTALL_INTELLIJ) \
+    INSTALL_POSTMAN=$(INSTALL_POSTMAN) \
+    INSTALL_DOCKER=$(INSTALL_DOCKER) \
+    INSTALL_NODEJS=$(INSTALL_NODEJS) \
+    INSTALL_GEDIT=$(INSTALL_GEDIT)   
+
+## set workdir
 WORKDIR $HOME
 
 ### Add all install scripts for further steps
@@ -42,10 +58,13 @@ ADD ./src/common/install/ $INST_SCRIPTS/
 ADD ./src/ubuntu/install/ $INST_SCRIPTS/
 RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 
-### Install some common tools
-### Install xvnc-server & noVNC - HTML5 based VNC viewer
-### Install firefox and chrome browser
-### Install xfce UI
+RUN locale-gen en_US.UTF-8
+
+ENV LANG='en_US.UTF-8' \
+    LANGUAGE='en_US:en' \
+    LC_ALL='en_US.UTF-8'
+
+### Install all additional tools now 
 RUN $INST_SCRIPTS/tools.sh && \
     $INST_SCRIPTS/tigervnc.sh && \
     $INST_SCRIPTS/no_vnc.sh && \
@@ -71,7 +90,7 @@ ADD ./src/common/xfce/ $HOME/
 ### configure startup
 RUN $INST_SCRIPTS/libnss_wrapper.sh
 ADD ./src/common/scripts $STARTUPDIR
-# ADD ./src/ubuntu/env/.mozilla $MOZILLA_HOME
+ADD ./src/ubuntu/env/.mozilla $MOZILLA_HOME
 RUN $INST_SCRIPTS/set_user_permission.sh $STARTUPDIR $HOME
 
 USER 1000

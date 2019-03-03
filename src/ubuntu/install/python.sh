@@ -25,9 +25,11 @@ if [ "$#" -lt  "2" ] || [ "$#" -gt "2" ]
         case $key in
             -i|--install)
             INSTALL="$2"
+            echo "###### in key ######"
             shift # past argument
             ;;
             *)
+             echo "###### case ######" 
              # unknown option
             ;;
         esac
@@ -36,9 +38,9 @@ if [ "$#" -lt  "2" ] || [ "$#" -gt "2" ]
 
     if [ "$INSTALL" = true ] || [ "$INSTALL" = TRUE ] ||  [ "$INSTALL" = True ]
     then
-        echo "Now Install"
+        echo "##### if ######"
         install_python
     else
-      echo "#### ELSE ####"    
+        echo "##### else #####"    
     fi
 fi

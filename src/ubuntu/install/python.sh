@@ -35,7 +35,7 @@ if [ "$#" -lt  "2" ] || [ "$#" -gt "2" ]
         esac
         shift # past argument or value
     done
-
+    echo $INSTALL
     if [ "$INSTALL" = true ] || [ "$INSTALL" = TRUE ] ||  [ "$INSTALL" = True ]
     then
         echo "##### if ######"

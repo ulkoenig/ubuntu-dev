@@ -8,5 +8,11 @@ apt-get install -y apt-utils vim wget curl net-tools locales bzip2 git-core jq t
     python-numpy #used for websockify/novnc
 apt-get clean -y
 
+echo "Install yq"
+apt install software-properties-common
+add-apt-repository ppa:rmescandon/yq
+apt update
+apt install yq -y
+
 echo "generate locales für en_US.UTF-8"
 locale-gen en_US.UTF-8

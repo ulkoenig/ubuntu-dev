@@ -8,7 +8,7 @@ function install_python {
   apt-get update 
   apt-get install -y install python3.6 
   apt-get clean -y
-  curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+  wget https://bootstrap.pypa.io/get-pip.py -O get-pip.py
   python get-pip.py
 }
 

@@ -103,7 +103,11 @@ objects:
           - name: INSTALL_POSTMAN
             value: ${INSTALL_POSTMAN}
           - name: INSTALL_PYTHON
-            value: ${INSTALL_PYTHON}  
+            value: ${INSTALL_PYTHON}
+          - name: INSTALL_NODEJS
+            value: ${INSTALL_NODEJS}
+          - name: INSTALL_VSCODE
+            value: ${INSTALL_VSCODE}      
     triggers:
     - github:
         secret: ${GITHUB_WEBHOOK_SECRET}
@@ -239,4 +243,10 @@ parameters:
   value: "FALSE"
 - description: Install DOCKER. For installation set value to TRUE
   name: INSTALL_PYTHON
+  value: "TRUE"
+- description: Install NodeJS. For installation set value to TRUE
+  name: INSTALL_NODEJS
+  value: "TRUE"
+- description: Install Visual Studio Code. For installation set value to TRUE
+  name: INSTALL_VSCODE
   value: "TRUE"

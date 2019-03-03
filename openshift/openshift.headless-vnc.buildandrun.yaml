@@ -86,8 +86,6 @@ objects:
       dockerStrategy:
         dockerfilePath: ${SOURCE_DOCKERFILE}
         env:
-          - name: INSTALL_NODEJS
-            value: ${INSTALL_NODEJS}
           - name: INSTALL_ECLIPSE
             value: ${INSTALL_ECLIPSE}
           - name: INSTALL_NETBEANS
@@ -102,8 +100,8 @@ objects:
             value: ${INSTALL_OPENSHIFTTOOLS}
           - name: INSTALL_POSTMAN
             value: ${INSTALL_POSTMAN}
-          - name: INSTALL_PYTHON
-            value: ${INSTALL_PYTHON}
+          - name: INSTALL_PIP
+            value: ${INSTALL_PIP}
           - name: INSTALL_NODEJS
             value: ${INSTALL_NODEJS}
           - name: INSTALL_VSCODE
@@ -217,36 +215,34 @@ parameters:
   generate: expression
   name: VNC_PW
   required: true
-- description: Install DOCKER. For installation set value to TRUE
+- description: Install oc and helm. For installation set value to TRUE
   name: INSTALL_OPENSHIFTTOOLS
   value: "FALSE"
-- description: Install DOCKER. For installation set value to TRUE
+- description: Install Docker. For installation set value to TRUE
   name: INSTALL_DOCKER
   value: "FALSE"
-- description: Install NODE.JS development environment with nodejs V6 and Visual Code Editor. For installation set value to TRUE
-  name: INSTALL_NODEJS
-  value: "FALSE"
-- description: Install ECLIPSE. For installation set value to TRUE
-  name: INSTALL_ECLIPSE
-  value: "FALSE"
-- description: Install NETBEANS. For installation set value to TRUE
-  name: INSTALL_NETBEANS
-  value: "FALSE"
-- description: Install DOCKER. For installation set value to TRUE
-  name: INSTALL_INTELLIJ
-  value: "FALSE"
-- description: Install DOCKER. For installation set value to TRUE
-  name: INSTALL_GEDIT
-  value: "FALSE"
-- description: Install DOCKER. For installation set value to TRUE
-  name: INSTALL_POSTMAN
-  value: "FALSE"
-- description: Install DOCKER. For installation set value to TRUE
-  name: INSTALL_PYTHON
+- description: Install PIP and yq. For installation set value to TRUE
+  name: INSTALL_PIP
   value: "TRUE"
 - description: Install NodeJS. For installation set value to TRUE
   name: INSTALL_NODEJS
-  value: "TRUE"
+  value: "TRUE"  
+- description: Install Eclipse. For installation set value to TRUE
+  name: INSTALL_ECLIPSE
+  value: "FALSE"
+- description: Install Netbeans. For installation set value to TRUE
+  name: INSTALL_NETBEANS
+  value: "FALSE"
+- description: Install IntelliJ. For installation set value to TRUE
+  name: INSTALL_INTELLIJ
+  value: "FALSE"
 - description: Install Visual Studio Code. For installation set value to TRUE
   name: INSTALL_VSCODE
   value: "TRUE"
+- description: Install GEdit. For installation set value to TRUE
+  name: INSTALL_GEDIT
+  value: "FALSE"
+- description: Install Postman. For installation set value to TRUE
+  name: INSTALL_POSTMAN
+  value: "FALSE"
+

@@ -2,6 +2,7 @@
 ### every exit != 0 fails the script
 set -e
 
+echo "############## Instll Python #############"
 function install_python {
   echo 'Installing Python and pip'
   add-apt-repository ppa:jonathonf/python-3.6

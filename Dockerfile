@@ -2,7 +2,7 @@
 
 FROM ubuntu:16.04
 
-MAINTAINER Ulrich Koenig "ulrich.koenig@telekom.de"
+MAINTAINER name Ulrich Koenig "ulrich.koenig@telekom.de"
 ENV REFRESHED_AT 2019-03-01
 
 LABEL io.k8s.description="Headless VNC Container with Xfce window manager, firefox, chromium and many more" \

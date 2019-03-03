@@ -5,10 +5,10 @@ set -e
 echo "############## Instll Python #############"
 function install_python {
   echo 'Installing Python and pip'
-  add-apt-repository ppa:jonathonf/python-3.6
-  apt-get update 
-  apt-get install -y install python3.6 
-  apt-get clean -y
+  #add-apt-repository ppa:jonathonf/python-3.6
+  #apt-get update 
+  #apt-get install -y install python3.6 
+  #apt-get clean -y
   wget https://bootstrap.pypa.io/get-pip.py -O get-pip.py
   python get-pip.py
 }

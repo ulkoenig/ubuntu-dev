@@ -9,7 +9,7 @@ apt-get install -y apt-utils vim wget curl net-tools locales bzip2 git-core jq t
 apt-get clean -y
 
 echo "Install yq"
-apt install software-properties-common
+apt install software-properties-common -y
 add-apt-repository ppa:rmescandon/yq
 apt update
 apt install yq -y

@@ -36,6 +36,9 @@ if [ "$#" -lt  "2" ] || [ "$#" -gt "2" ]
 
     if [ "$INSTALL" = true ] || [ "$INSTALL" = TRUE ] ||  [ "$INSTALL" = True ]
     then
+        echo "Now Install"
         install_python
+    else
+      echo "#### ELSE ####"    
     fi
 fi

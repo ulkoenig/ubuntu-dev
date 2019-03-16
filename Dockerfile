@@ -74,11 +74,7 @@ ENV LANG='en_US.UTF-8' \
 RUN $INST_SCRIPTS/tigervnc.sh && \
     $INST_SCRIPTS/no_vnc.sh && \
     $INST_SCRIPTS/pip.sh -i $INSTALL_PIP && \
-    $INST_SCRIPTS/firefox.sh && \
-    $INST_SCRIPTS/chrome.sh && \
     $INST_SCRIPTS/xfce_ui.sh && \
-    $INST_SCRIPTS/display_resolution.sh && \
-    $INST_SCRIPTS/tools_adv.sh && \
     $INST_SCRIPTS/openshift_tools.sh -i $INSTALL_OPENSHIFTTOOLS && \
     $INST_SCRIPTS/postman.sh -i $INSTALL_POSTMAN && \
     $INST_SCRIPTS/eclipse.sh -i $INSTALL_ECLIPSE && \

@@ -8,7 +8,7 @@ echo "Install Anaconda"
 ## wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
 
 wget https://repo.anaconda.com/archive/Anaconda3-5.3.0-Linux-x86_64.sh -O anaconda.sh
-bash anaconda.sh -b -p /usr/local/etc/anaconda
+## bash anaconda.sh -b -p /usr/local/etc/anaconda
 ## ln -s /usr/local/etc/anaconda/bin Postman /usr/local/bin/postman
 
 }

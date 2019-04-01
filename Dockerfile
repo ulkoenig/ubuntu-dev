@@ -11,9 +11,9 @@ LABEL io.k8s.description="Headless VNC Container with Xfce window manager and ma
       io.openshift.tags="vnc, ubuntu, xfce" \
       io.openshift.non-scalable=true
 
-ENV http_proxy="http://proxy-vip.infrastructure.psst.t-online.corp:3128" \
-    https_proxy="http://proxy-vip.infrastructure.psst.t-online.corp:3128" \
-    no_proxy="localhost,127.0.0.1,.psst.t-online.corp,.telekom.de"
+## ENV http_proxy="http://proxy-vip.infrastructure.psst.t-online.corp:3128" \
+##    https_proxy="http://proxy-vip.infrastructure.psst.t-online.corp:3128" \
+##    no_proxy="localhost,127.0.0.1,.psst.t-online.corp,.telekom.de"
 
 ## Connection ports for controlling the UI:
 # VNC port:5901

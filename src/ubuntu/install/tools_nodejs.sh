@@ -11,7 +11,7 @@ function install_vs_code {
 
     #wget http://go.microsoft.com/fwlink/?LinkID=760868 -O vscode.deb
     
-    wget https://az764295.vo.msecnd.net/stable/c6e592b2b5770e40a98cb9c2715a8ef89aec3d74/code_1.30.0-1544567151_amd64.deb -O vscode.deb
+    wget https://az764295.vo.msecnd.net/stable/c6e592b2b5770e40a98cb9c2715a8ef89aec3d74/code_1.31.1-1549938243_amd64.deb -O vscode.deb
     echo "Check were we are"
     ls -la
     pwd

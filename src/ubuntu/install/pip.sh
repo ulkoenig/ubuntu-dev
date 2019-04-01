@@ -4,13 +4,11 @@ set -e
 
 echo "############## Install pip and some python tools #############"
 function install_pip {
-  #add-apt-repository ppa:jonathonf/python-3.6
-  #apt-get update 
-  #apt-get install -y install python3.6 
-  #apt-get clean -y
   wget https://bootstrap.pypa.io/get-pip.py -O get-pip.py
   python get-pip.py
   pip install yq
+  pip install json-spec
+  pip install jsonschema
 }
 
 if [ "$#" -lt  "2" ] || [ "$#" -gt "2" ]

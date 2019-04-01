@@ -7,14 +7,15 @@ metadata:
 spec:
   replicas: 1
   selector:
-    deploymentConfig: {{ .Values.name }}
+    matchLabels:
+      name: {{ .Values.name }}
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         application: {{ .Values.name }}
-        deploymentConfig: {{ .Values.name }}
+        deployment: {{ .Values.name }}
       name: {{ .Values.name }}
     spec:
       containers:

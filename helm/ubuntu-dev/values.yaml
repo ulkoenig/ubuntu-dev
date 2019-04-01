@@ -4,7 +4,7 @@
 
 name: ubuntu-dev
 hostname_http:  
-source_repository_url: http://gogs-front-end.telitcaas1.t-internal.com/ulkoenig/ubuntu-dev.git
+source_repository_url: http://github.com/ulkoenig/ubuntu-dev.git
 source_repository_ref: "master"
 source_dockerfile: Dockerfile
 vnc_pw:

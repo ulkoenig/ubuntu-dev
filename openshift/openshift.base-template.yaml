@@ -1,0 +1,258 @@
+apiVersion: v1
+kind: Template
+labels:
+  template: ubuntu-dev
+metadata:
+  annotations:
+    openshift.io/display-name: "Developer Ubuntu container"
+    description: Headless VNC Developer container based on Ubuntu (build & run) with Eclipse, Netbeans, Visual Studio Code and many more
+    iconClass: icon-ubuntu
+    tags: headless,vnc,consol,dev,ubuntu
+    version: 1.0.3
+  creationTimestamp: null
+  name: ubuntu-dev
+objects:
+- apiVersion: v1
+  kind: Secret
+  metadata:
+    annotations:
+      template.openshift.io/expose-admin_password: '{.data[''vnc_password'']}'
+    labels:
+      application: ${APPLICATION_NAME}
+      template: ubuntu-dev
+    name: ${APPLICATION_NAME}-secret
+  stringData:
+    vnc-password: ${VNC_PW}    
+  type: Opaque
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      description: Headless VNC Dev based on Ubuntu and http port
+    labels:
+      application: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}
+  spec:
+    ports:
+    - name: http-port-tcp
+      protocol: TCP
+      port: 6901
+      targetPort: 6901
+    - name: vnc-port-tcp
+      protocol: TCP
+      port: 5901
+      targetPort: 5901
+    selector:
+      deploymentConfig: ${APPLICATION_NAME}
+- apiVersion: v1
+  id: ${APPLICATION_NAME}-http
+  kind: Route
+  metadata:
+    annotations:
+      description: Route for vnc's http service.
+    labels:
+      application: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}
+  spec:
+    host: ${HOSTNAME_HTTP}
+    to:
+      name: ${APPLICATION_NAME}
+    port:
+      targetPort: http-port-tcp
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    labels:
+      application: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    labels:
+      application: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}
+  spec:
+    output:
+      to:
+        kind: ImageStreamTag
+        name: ${APPLICATION_NAME}:latest
+    source:
+      git:
+        ref: ${SOURCE_REPOSITORY_REF}
+        uri: ${SOURCE_REPOSITORY_URL}
+      type: Git
+    strategy:
+      type: Docker
+      dockerStrategy:
+        dockerfilePath: ${SOURCE_DOCKERFILE}
+        env:
+          - name: INSTALL_ECLIPSE
+            value: ${INSTALL_ECLIPSE}
+          - name: INSTALL_NETBEANS
+            value: ${INSTALL_NETBEANS}
+          - name: INSTALL_DOCKER
+            value: ${INSTALL_DOCKER}
+          - name: INSTALL_GEDIT
+            value: ${INSTALL_GEDIT}
+          - name: INSTALL_INTELLIJ
+            value: ${INSTALL_INTELLIJ}
+          - name: INSTALL_OPENSHIFTTOOLS
+            value: ${INSTALL_OPENSHIFTTOOLS}
+          - name: INSTALL_POSTMAN
+            value: ${INSTALL_POSTMAN}
+          - name: INSTALL_PIP
+            value: ${INSTALL_PIP}
+          - name: INSTALL_NODEJS
+            value: ${INSTALL_NODEJS}
+          - name: INSTALL_VSCODE
+            value: ${INSTALL_VSCODE}
+          - name: INSTALL_CHROME
+            value: ${INSTALL_CHROME}
+          - name: INSTALL_CHROMIUM
+            value: ${INSTALL_CHROMIUM}          
+    triggers:
+    - github:
+        secret: ${GITHUB_WEBHOOK_SECRET}
+      type: GitHub
+    - generic:
+        secret: ${GENERIC_WEBHOOK_SECRET}
+      type: Generic
+    - imageChange: {}
+      type: ImageChange
+    - type: ConfigChange
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    labels:
+      application: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}
+  spec:
+    replicas: 1
+    selector:
+      deploymentConfig: ${APPLICATION_NAME}
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        labels:
+          application: ${APPLICATION_NAME}INSTALL_NODEJS
+          deploymentConfig: ${APPLICATION_NAME}
+        name: ${APPLICATION_NAME}
+      spec:
+        containers:
+        - env:
+          - name: VNC_PW
+            valueFrom:
+              secretKeyRef:
+                key: vnc-password
+                name: ${APPLICATION_NAME}-secret
+          name: ${APPLICATION_NAME}
+          image: ${APPLICATION_NAME}
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 5901
+            name: vnc
+            protocol: TCP
+          - containerPort: 6901
+            name: http
+            protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 6901
+              scheme: HTTP
+            initialDelaySeconds: 10
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 6901
+              scheme: HTTP
+            initialDelaySeconds: 10
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+    triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - ${APPLICATION_NAME}
+        from:
+          kind: ImageStreamTag
+          name: ${APPLICATION_NAME}:latest
+      type: ImageChange
+    - type: ConfigChange
+parameters:
+- description: The name for the application.
+  name: APPLICATION_NAME
+  required: true
+  value: ubuntu-dev
+- description: 'Custom hostname for http service route.  Leave blank for default hostname,
+    e.g.: <application-name>-<project>.<default-domain-suffix>'
+  name: HOSTNAME_HTTP
+- description: Git source URI for application
+  name: SOURCE_REPOSITORY_URL
+  required: true
+  value: http://gogs-front-end.telitcaas1.t-internal.com/ulkoenig/ubuntu-dev.git
+- description: Git branch/tag reference
+  name: SOURCE_REPOSITORY_REF
+  value: "master"
+- description: Name of the Dockerfile for example Dockerfile.ubuntu.xfce.vnc, Dockerfile.centos.icewm.vnc, Dockerfile.ubuntu.icewm.vnc or Dockerfile.centos.xfce.vnc
+  name: SOURCE_DOCKERFILE
+  value: Dockerfile
+- description: GitHub trigger secret
+  from: '[a-zA-Z0-9]{8}'
+  generate: expression
+  name: GITHUB_WEBHOOK_SECRET
+  required: true
+- description: Generic build trigger secret
+  from: '[a-zA-Z0-9]{8}'
+  generate: expression
+  name: GENERIC_WEBHOOK_SECRET
+  required: true
+- description: VNC Password
+  from: '[a-zA-Z0-9]{8}'
+  generate: expression
+  name: VNC_PW
+  required: true
+- description: Install oc and helm. For installation set value to TRUE
+  name: INSTALL_OPENSHIFTTOOLS
+  value: "TRUE"
+- description: Install Docker. For installation set value to TRUE
+  name: INSTALL_DOCKER
+  value: "TRUE"
+- description: Install PIP and yq. For installation set value to TRUE
+  name: INSTALL_PIP
+  value: "TRUE"
+- description: Install NodeJS. For installation set value to TRUE
+  name: INSTALL_NODEJS
+  value: "TRUE"  
+- description: Install Chrome Browser. For installation set value to TRUE
+  name: INSTALL_CHROME
+  value: "TRUE"
+- description: Install Chromium Browser. For installation set value to TRUE
+  name: INSTALL_CHROMIUM
+  value: "FALSE"
+- description: Install Eclipse. For installation set value to TRUE
+  name: INSTALL_ECLIPSE
+  value: "FALSE"
+- description: Install Netbeans. For installation set value to TRUE
+  name: INSTALL_NETBEANS
+  value: "FALSE"
+- description: Install IntelliJ. For installation set value to TRUE
+  name: INSTALL_INTELLIJ
+  value: "FALSE"
+- description: Install Visual Studio Code. For installation set value to TRUE
+  name: INSTALL_VSCODE
+  value: "TRUE"
+- description: Install GEdit. For installation set value to TRUE
+  name: INSTALL_GEDIT
+  value: "FALSE"
+- description: Install Postman. For installation set value to TRUE
+  name: INSTALL_POSTMAN
+  value: "TRUE"
+

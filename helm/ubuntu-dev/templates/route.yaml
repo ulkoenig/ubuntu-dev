@@ -1,0 +1,14 @@
+kind: Route
+apiVersion: build.openshift.io/v1
+metadata:
+  annotations:
+    description: Route for vnc's http service.
+  labels:
+    application: {{ .Values.name }}
+  name: {{ .Values.name }}
+spec:
+  host: {{ .Values.hostname_http }}
+  to:
+    name: {{ .Values.name }}
+  port:
+    targetPort: http-port-tcp

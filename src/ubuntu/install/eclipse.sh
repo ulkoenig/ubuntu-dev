@@ -4,6 +4,16 @@ set -e
 
 function install_eclipse {
 echo 'Installing eclipse'
+
+if type -p java; then
+  echo found java executable in PATH
+elif [[ -n "$JAVA_HOME " ]] && [[ -x "$JAVA_HOME/bin/java" ]]; then
+  echo found java exectuable in JAVA_HOME
+else
+  echo "no java found"
+  apt-get install -y default-jre
+fi
+
 wget http://ftp.fau.de/eclipse/technology/epp/downloads/release/photon/RC3/eclipse-jee-photon-RC3-linux-gtk-x86_64.tar.gz -O eclipse.tar.gz
 tar -xzf eclipse.tar.gz -C /usr/local/etc/
 rm eclipse.tar.gz

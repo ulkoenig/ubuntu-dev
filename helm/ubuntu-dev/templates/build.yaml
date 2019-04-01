@@ -1,0 +1,41 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+labels:
+  application: {{ .Values.name }}
+name: {{ .Values.name }}
+spec:
+output:
+  to:
+    kind: ImageStreamTag
+    name: {{ .Values.name }}:latest
+source:
+  git:
+    ref: {{ .Values.source_repository_ref }}
+    uri: {{ .Values.source_repository_url }}
+  type: Git
+strategy:
+  type: Docker
+  dockerStrategy:
+    dockerfilePath: {{ .Values.dockerfile }}
+    env:
+      - name: INSTALL_ECLIPSE
+        value: {{ .Values.install.eclipse }}
+      - name: INSTALL_NETBEANS
+        value: {{ .Values.install.netbeans }}
+      - name: INSTALL_DOCKER
+        value: {{ .Values.install.docker }}
+      - name: INSTALL_GEDIT
+        value: {{ .Values.install.gedit }}
+      - name: INSTALL_INTELLIJ
+        value: {{ .Values.install.intellij }}
+      - name: INSTALL_OPENSHIFTTOOLS
+        value: {{ .Values.install.openshifttools }}
+      - name: INSTALL_POSTMAN
+        value: {{ .Values.install.postman }}
+      - name: INSTALL_PIP
+        value: {{ .Values.install.pip }}
+      - name: INSTALL_NODEJS
+        value: {{ .Values.install.nodejs }}
+      - name: INSTALL_VSCODE
+        value: {{ .Values.install.vscode }}

@@ -1,0 +1,56 @@
+apiVersion: build.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+    name: {{ .Values.name }}
+    labels:
+      application: {{ .Values.name }}
+spec:
+  replicas: 1
+  selector:
+    deploymentConfig: {{ .Values.name }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        application: {{ .Values.name }}
+        deploymentConfig: {{ .Values.name }}
+      name: {{ .Values.name }}
+    spec:
+      containers:
+        - env:
+          - name: VNC_PW
+            valueFrom:
+              secretKeyRef:
+                key: vnc-password
+                name: {{ .Values.name }}-secret
+          name: {{ .Values.name }}
+          image: {{ .Values.name }}
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 5901
+            name: vnc
+            protocol: TCP
+          - containerPort: 6901
+            name: http
+            protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 6901
+              scheme: HTTP
+            initialDelaySeconds: 10
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 6901
+              scheme: HTTP
+            initialDelaySeconds: 10
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3

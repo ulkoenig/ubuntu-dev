@@ -1,0 +1,21 @@
+
+kind: Service
+apiVersion: v1
+metadata:
+  annotations:
+    description: Headless VNC Dev based on Ubuntu and http port
+  labels:
+    application: {{ .Values.name }}
+  name: {{ .Values.name }}
+spec:
+  ports:
+  - name: http-port-tcp
+    protocol: TCP
+    port: 6901
+    targetPort: 6901
+  - name: vnc-port-tcp
+    protocol: TCP
+    port: 5901
+    targetPort: 5901
+  selector:
+    deploymentConfig: {{ .Values.name }}

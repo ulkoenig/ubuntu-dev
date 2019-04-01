@@ -2,28 +2,14 @@
 ### every exit != 0 fails the script
 set -e
 
-function install_gedit {
-echo "Install gedit GNOME text editor"
-apt-get update 
-apt-get install -y gedit 
-apt-get clean -y
+function install {
+echo "Install Chromium Browser"
 
-# Add item to xfce application menu
-cat > /usr/share/applications/gedit.desktop << EOF
-[Desktop Entry]
-Name=gedit
-GenericName=gedit
-GenericName[de]=gedit
-GenericName[en]=gedit
-Comment=gedit GNOME text editor
-Exec=gedit
-Icon=/usr/share/gedit/logo/gedit-logo.png
-Terminal=false
-Type=Application
-StartupNotify=false
-Categories=Development
-OnlyShowIn=GNOME;XFCE;
-EOF
+apt-get update 
+apt-get install -y chromium-browser chromium-browser-l10n chromium-codecs-ffmpeg
+apt-get clean -y
+### fix to start chromium in a Docker container, see https://github.com/ConSol/docker-headless-vnc-container/issues/2
+echo "CHROMIUM_FLAGS='--no-sandbox --start-maximized --user-data-dir'" > $HOME/.chromium-browser.init
 }
 
 if [ "$#" -lt  "2" ] || [ "$#" -gt "2" ]
@@ -49,6 +35,6 @@ if [ "$#" -lt  "2" ] || [ "$#" -gt "2" ]
 
     if [ "$INSTALL" = true ] || [ "$INSTALL" = TRUE ] ||  [ "$INSTALL" = True ]
     then
-        install_gedit
+        install
     fi
 fi

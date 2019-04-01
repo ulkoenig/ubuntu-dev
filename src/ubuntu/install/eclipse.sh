@@ -13,7 +13,6 @@ else
   echo "no java found"
   apt-get install -y default-jre
 fi
-
 wget http://ftp.fau.de/eclipse/technology/epp/downloads/release/photon/RC3/eclipse-jee-photon-RC3-linux-gtk-x86_64.tar.gz -O eclipse.tar.gz
 tar -xzf eclipse.tar.gz -C /usr/local/etc/
 rm eclipse.tar.gz

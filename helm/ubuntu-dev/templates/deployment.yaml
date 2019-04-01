@@ -8,14 +8,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      name: {{ .Values.name }}
+      app: {{ .Values.name }}
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         application: {{ .Values.name }}
-        deployment: {{ .Values.name }}
+        app: {{ .Values.name }}
       name: {{ .Values.name }}
     spec:
       containers:

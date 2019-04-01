@@ -86,7 +86,7 @@ RUN $INST_SCRIPTS/tigervnc.sh && \
     $INST_SCRIPTS/display_resolution.sh && \
     $INST_SCRIPTS/tools_adv.sh
 
-RUN --no-cache $INST_SCRIPTS/pip.sh -i $INSTALL_PIP && \
+RUN $INST_SCRIPTS/pip.sh -i $INSTALL_PIP && \
     $INST_SCRIPTS/chrome.sh -i $INSTALL_CHROME && \
     $INST_SCRIPTS/chromium.sh -i $INSTALL_CHROMIUM && \
     $INST_SCRIPTS/openshift_tools.sh -i $INSTALL_OPENSHIFTTOOLS && \

@@ -104,7 +104,7 @@ ADD ./src/common/xfce/ $HOME/
 ### configure startup and Firefox defaults
 RUN $INST_SCRIPTS/libnss_wrapper.sh
 ADD ./src/common/scripts $STARTUPDIR
-ADD ./src/ubuntu/env/.mozilla $MOZILLA_HOME
+# ADD ./src/ubuntu/env/.mozilla $MOZILLA_HOME
 RUN $INST_SCRIPTS/set_user_permission.sh $STARTUPDIR $HOME
 
 USER 1000

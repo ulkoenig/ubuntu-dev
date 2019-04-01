@@ -1,5 +1,5 @@
-apiVersion: build.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
     name: {{ .Values.name }}
     labels:

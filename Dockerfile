@@ -83,8 +83,7 @@ RUN $INST_SCRIPTS/tigervnc.sh && \
     $INST_SCRIPTS/gedit.sh -i $INSTALL_GEDIT && \
     $INST_SCRIPTS/intellij.sh -i $INSTALL_INTELLIJ && \
     $INST_SCRIPTS/vs-code.sh -i $INSTALL_VSCODE && \
-    $INST_SCRIPTS/nodejs.sh -i $INSTALL_NODEJS && \
-    $INST_SCRIPTS/anaconda.sh -i TRUE
+    $INST_SCRIPTS/nodejs.sh -i $INSTALL_NODEJS
     
 ADD ./src/common/xfce/ $HOME/
 

@@ -13,11 +13,11 @@ apt-get install -y \
         jq \
         locales \
         net-tools \
-        python-numpy #used for websockify/novnc
+        python-numpy \
         tree \
         vim \
         wget
 # apt-get clean -y
-
+# python-numpy is used for websockify/novnc 
 echo "generate locales für en_US.UTF-8"
 locale-gen en_US.UTF-8

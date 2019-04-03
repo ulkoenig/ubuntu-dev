@@ -19,9 +19,10 @@ function install_vs_code {
     dpkg --configure -a
     
     echo "install libs first"
-    apt-get update
+    # apt-get update and clean should only run ones in the Dockerfile
+    # apt-get update
     apt-get install -y libnotify4 libnss3 libxkbfile1 libgconf-2-4 libsecret-1-0 
-    apt-get install -f
+    # apt-get install -f
     
     echo "now install vscode"
     dpkg -i vscode.deb

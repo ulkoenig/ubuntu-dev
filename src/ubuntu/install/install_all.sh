@@ -13,7 +13,8 @@ function install_vs_code {
     dpkg --configure -a
     
     echo "install libs first"
-    apt-get update
+    # apt-get update and clean should only run ones in the Dockerfile
+    # apt-get update
     apt-get install -y libnotify4 libnss3 libxkbfile1 libgconf-2-4 libsecret-1-0 
     apt-get install -f
     
@@ -22,19 +23,19 @@ function install_vs_code {
     
     apt-get install -f
     
-    apt-get clean -y
+    # apt-get clean -y
 }
 
 ### Install nodejs
 function install_nodejs {
     echo "Install nodejs"
-
-    apt-get update
+    # apt-get update and clean should only run ones in the Dockerfile
+    # apt-get update
     curl -sL https://deb.nodesource.com/setup_6.x | bash -
     apt-get install -y nodejs
     apt-get install -y build-essential
     
-    apt-get clean -y
+    # apt-get clean -y
 
 }
 

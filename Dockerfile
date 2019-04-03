@@ -71,7 +71,7 @@ ADD ./src/ubuntu/install/ $INST_SCRIPTS/
 RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 
 ### Install some basics and set local environment first
-RUN $INST_SCRIPTS/tools.sh
+RUN apt-get update && $INST_SCRIPTS/tools.sh
 
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US:en' \
@@ -79,14 +79,16 @@ ENV LANG='en_US.UTF-8' \
 
 ### Install all additional tools and applications now 
 ## RUN $INST_SCRIPTS/tools.sh && \
-RUN $INST_SCRIPTS/tigervnc.sh && \
+RUN apt-get update \
+    $INST_SCRIPTS/tigervnc.sh && \
     $INST_SCRIPTS/no_vnc.sh && \
     $INST_SCRIPTS/firefox.sh && \
     $INST_SCRIPTS/xfce_ui.sh && \
     $INST_SCRIPTS/display_resolution.sh && \
     $INST_SCRIPTS/tools_adv.sh
 
-RUN $INST_SCRIPTS/pip.sh -i $INSTALL_PIP && \
+RUN apt-get update \
+    $INST_SCRIPTS/pip.sh -i $INSTALL_PIP && \
     $INST_SCRIPTS/chrome.sh -i $INSTALL_CHROME && \
     $INST_SCRIPTS/chromium.sh -i $INSTALL_CHROMIUM && \
     $INST_SCRIPTS/openshift_tools.sh -i $INSTALL_OPENSHIFTTOOLS && \
@@ -97,7 +99,8 @@ RUN $INST_SCRIPTS/pip.sh -i $INSTALL_PIP && \
     $INST_SCRIPTS/gedit.sh -i $INSTALL_GEDIT && \
     $INST_SCRIPTS/intellij.sh -i $INSTALL_INTELLIJ && \
     $INST_SCRIPTS/vs-code.sh -i $INSTALL_VSCODE && \
-    $INST_SCRIPTS/nodejs.sh -i $INSTALL_NODEJS
+    $INST_SCRIPTS/nodejs.sh -i $INSTALL_NODEJS \
+    apt-get clean -y
     
 ADD ./src/common/xfce/ $HOME/
 

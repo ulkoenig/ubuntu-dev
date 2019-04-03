@@ -3,9 +3,10 @@
 set -e
 
 echo "Install nss-wrapper to be able to execute image as non-root user"
-apt-get update 
+# apt-get update and clean should only run ones in the Dockerfile
+# apt-get update 
 apt-get install -y libnss-wrapper gettext
-apt-get clean -y
+# apt-get clean -y
 
 echo "add 'souce generate_container_user' to .bashrc"
 

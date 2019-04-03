@@ -4,9 +4,10 @@ set -e
 
 function install_gedit {
 echo "Install gedit GNOME text editor"
-apt-get update 
+# apt-get update and clean should only run ones in the Dockerfile
+# apt-get update 
 apt-get install -y gedit 
-apt-get clean -y
+#apt-get clean -y
 
 # Add item to xfce application menu
 cat > /usr/share/applications/gedit.desktop << EOF

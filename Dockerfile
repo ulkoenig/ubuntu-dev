@@ -79,7 +79,7 @@ ENV LANG='en_US.UTF-8' \
 
 ### Install all additional tools and applications now 
 ## RUN $INST_SCRIPTS/tools.sh && \
-RUN apt-get update \
+RUN apt-get update && \
     $INST_SCRIPTS/tigervnc.sh && \
     $INST_SCRIPTS/no_vnc.sh && \
     $INST_SCRIPTS/firefox.sh && \
@@ -87,7 +87,7 @@ RUN apt-get update \
     $INST_SCRIPTS/display_resolution.sh && \
     $INST_SCRIPTS/tools_adv.sh
 
-RUN apt-get update \
+RUN apt-get update && \
     $INST_SCRIPTS/pip.sh -i $INSTALL_PIP && \
     $INST_SCRIPTS/chrome.sh -i $INSTALL_CHROME && \
     $INST_SCRIPTS/chromium.sh -i $INSTALL_CHROMIUM && \
@@ -99,7 +99,7 @@ RUN apt-get update \
     $INST_SCRIPTS/gedit.sh -i $INSTALL_GEDIT && \
     $INST_SCRIPTS/intellij.sh -i $INSTALL_INTELLIJ && \
     $INST_SCRIPTS/vs-code.sh -i $INSTALL_VSCODE && \
-    $INST_SCRIPTS/nodejs.sh -i $INSTALL_NODEJS \
+    $INST_SCRIPTS/nodejs.sh -i $INSTALL_NODEJS && \
     apt-get clean -y
     
 ADD ./src/common/xfce/ $HOME/

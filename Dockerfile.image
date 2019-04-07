@@ -67,9 +67,9 @@ WORKDIR $HOME
 USER root
 
 ### Add all install scripts for further steps
-#ADD ./src/common/install/ $INST_SCRIPTS/
-#ADD ./src/ubuntu/install/ $INST_SCRIPTS/
-#RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
+ADD ./src/common/install/ $INST_SCRIPTS/
+ADD ./src/ubuntu/install/ $INST_SCRIPTS/
+RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 
 ### Install some basics and set local environment first
 #RUN apt-get update && $INST_SCRIPTS/tools.sh
@@ -107,9 +107,9 @@ ENV LANG='en_US.UTF-8' \
 
 ### configure startup and Firefox defaults
 #RUN $INST_SCRIPTS/libnss_wrapper.sh
-#ADD ./src/common/scripts $STARTUPDIR
+ADD ./src/common/scripts $STARTUPDIR
 # ADD ./src/ubuntu/env/.mozilla $MOZILLA_HOME
-#RUN $INST_SCRIPTS/set_user_permission.sh $STARTUPDIR $HOME
+RUN $INST_SCRIPTS/set_user_permission.sh $STARTUPDIR $HOME
 
 USER 1000
 

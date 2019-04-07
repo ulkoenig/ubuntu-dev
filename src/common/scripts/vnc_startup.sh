@@ -76,7 +76,7 @@ echo "$VNC_PW" | vncpasswd -f >> $PASSWD_PATH
 chmod 600 $PASSWD_PATH
 
 echo "Start Docker daemon now"
-systemctl start docker
+service docker start
 
 ## start vncserver and noVNC webclient
 echo -e "\n------------------ start noVNC  ----------------------------"

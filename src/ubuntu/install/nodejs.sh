@@ -8,7 +8,7 @@ function install_nodejs {
   echo "Install nodejs Version 6"
   # apt-get update and clean should only run ones in the Dockerfile
   # apt-get update
-  curl -sL https://deb.nodesource.com/setup_6.x | bash -
+  curl -sL https://deb.nodesource.com/setup_8.x | bash -
   apt-get install -y nodejs
   apt-get install -y build-essential
   # apt-get clean -y
